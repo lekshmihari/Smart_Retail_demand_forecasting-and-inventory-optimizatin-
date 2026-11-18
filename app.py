@@ -284,8 +284,26 @@ st.markdown("""
 }
 
 h1, h2, h3 {
-    color: #F1F5F9 !important;
+    color: #FFFFFF !important;
     font-weight: 700;
+}
+
+h1 {
+    letter-spacing: 0.5px;
+}
+
+h2 {
+    color: #BAE6FD !important;
+}
+
+h3 {
+    color: #38BDF8 !important;
+}
+
+[data-testid="stMarkdownContainer"] p,
+[data-testid="stMarkdownContainer"] li {
+    color: #CBD5E1;
+    line-height: 1.7;
 }
 
 [data-testid="stMarkdownContainer"] h1,
@@ -347,13 +365,56 @@ div.stButton > button:hover {
     color: #BAE6FD !important;
 }
 
-[data-testid="stSelectbox"] [data-baseweb="select"] {
+
+
+/* Dropdown control */
+div[data-baseweb="select"] > div,
+div[data-baseweb="select"] > div > div {
     background-color: #102944 !important;
     border: 1px solid #38BDF8 !important;
     border-radius: 10px !important;
 }
 
-[data-testid="stSelectbox"] div[data-baseweb="select"] * {
+div[data-baseweb="select"] span,
+div[data-baseweb="select"] input,
+div[data-baseweb="select"] svg {
+    color: #F1F5F9 !important;
+    fill: #F1F5F9 !important;
+    -webkit-text-fill-color: #F1F5F9 !important;
+}
+
+div[data-baseweb="select"] input[role="combobox"] {
+    background-color: #102944 !important;
+    color: #F1F5F9 !important;
+    -webkit-text-fill-color: #F1F5F9 !important;
+    caret-color: #F1F5F9 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Dropdown options panel */
+div[data-baseweb="popover"],
+div[data-baseweb="popover"] > div,
+div[data-baseweb="menu"] {
+    background-color: #102944 !important;
+}
+
+div[data-baseweb="menu"] li,
+div[role="option"],
+li[role="option"] {
+    background-color: #102944 !important;
+    color: #F1F5F9 !important;
+}
+
+div[data-baseweb="menu"] li:hover,
+div[role="option"]:hover,
+li[role="option"]:hover {
+    background-color: #123B68 !important;
+    color: #FFFFFF !important;
+}
+
+[data-testid="stSelectbox"] label,
+[data-testid="stSelectbox"] label p {
     color: #F1F5F9 !important;
 }
 
@@ -751,9 +812,25 @@ if page == "Model Performance":
     comparison = load_comparison()
 
     st.subheader("Model Comparison Table")
-    st.dataframe(comparison, use_container_width=True)
 
+    styled_comparison = comparison.style.set_properties(
+        **{
+            "background-color": "#102944",
+            "color": "#F1F5F9",
+            "border-color": "#24415E"
+        }
+    ).set_table_styles([
+        {
+            "selector": "th",
+            "props": [
+                ("background-color", "#123B68"),
+                ("color", "#F1F5F9"),
+                ("border", "1px solid #24415E")
+            ]
+        }
+    ])
 
+    st.table(styled_comparison)
     st.subheader("Performance Comparison")
 
     # Clean column names
