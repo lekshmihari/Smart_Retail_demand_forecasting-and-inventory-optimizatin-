@@ -964,9 +964,10 @@ if page == "Demand Prediction":
 
             # Prepare model input
             input_data = pd.DataFrame(
-                0,
+                0.0,
                 index=[0],
-                columns=feature_columns
+                columns=feature_columns,
+                dtype=float
             )
 
             input_values = {
